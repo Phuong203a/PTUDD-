@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="#ECECEC"
+    tools:context=".LibraryActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F3F3F3"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="30dp"
+            android:backgroundTint="#FFC107"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:text="THƯ VIỆN"
+            android:textSize="40sp"></TextView>
+
+        <LinearLayout
+            android:layout_width="380dp"
+            android:layout_height="65dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="185dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/white"
+                android:backgroundTint="#F8E4A8"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:cardCornerRadius="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:text="Học phần"
+                    android:textSize="25sp"></TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/white"
+                android:backgroundTint="#FFFFFF"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:cardCornerRadius="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:text="Thư mục"
+                    android:textSize="25sp"></TextView>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="380dp"
+            android:layout_height="180dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:cardCornerRadius="10dp"
+            android:background="@color/white"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:text="Tên học phần">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical"
+                android:text="Tên học phần"
+                android:textSize="20sp"></TextView>
+
+            <EditText
+
+                android:layout_width="350dp"
+                android:layout_height="100dp"
+                android:background="#B3E9E5E0"
+                android:hint="2 thuật ngữ" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Tên người dùng"
+                android:textSize="15sp"></TextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="380dp"
+            android:layout_height="180dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:cardCornerRadius="10dp"
+            android:background="@color/white"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"
+            android:text="Tên học phần">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical"
+                android:text="Tên học phần"
+                android:textSize="20sp"></TextView>
+
+            <EditText
+
+                android:layout_width="350dp"
+                android:layout_height="100dp"
+                android:background="#B3E9E5E0"
+                android:hint="2 thuật ngữ" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Tên người dùng"
+                android:textSize="15sp"></TextView>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:background="#41485185"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="82dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/home"></ImageView>
+
+            <ImageView
+                android:layout_width="82dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/paper"></ImageView>
+
+            <ImageView
+                android:layout_width="82dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/more"></ImageView>
+
+            <ImageView
+                android:layout_width="82dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/folder"></ImageView>
+
+            <ImageView
+                android:layout_width="82dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/user"></ImageView>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</RelativeLayout>
+
+

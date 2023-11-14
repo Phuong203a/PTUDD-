@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="#ECECEC"
-    tools:context=".MainActivity">
+    tools:context=".SendOTPActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -58,7 +58,6 @@
             <EditText
                 android:layout_width="300dp"
                 android:layout_height="48dp"
-                android:layout_marginTop="5dp"
                 android:background="#B3E9E5E0"
                 android:drawableLeft="@drawable/baseline_mail_lock_24"
                 android:hint="Email/Phone"

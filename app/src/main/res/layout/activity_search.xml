@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="#ECECEC"
+    tools:context=".SearchActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F3F3F3"
+        android:gravity="center"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:text="VERBALVERSE"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="30dp"
+            android:textSize="50sp"></TextView>
+
+        <LinearLayout
+            android:layout_width="420dp"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:cardCornerRadius="10dp"
+            android:background="@color/white"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp">
+
+
+            <EditText
+                android:layout_width="400dp"
+                android:layout_height="50dp"
+                android:background="#B3E9E5E0"
+                android:drawableLeft="@drawable/search"
+                android:hint="học phần, sách giáo khoa, câu hỏi"
+                android:drawableRight="@drawable/add_a_photo"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_marginTop="20dp"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            android:src="@drawable/imgsearch"></ImageView>
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="60dp"
+            android:background="#41485185"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="82dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/home"></ImageView>
+
+            <ImageView
+                android:layout_width="82dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/paper"></ImageView>
+
+            <ImageView
+                android:layout_width="82dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/more"></ImageView>
+
+            <ImageView
+                android:layout_width="82dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/folder"></ImageView>
+
+            <ImageView
+                android:layout_width="82dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/user"></ImageView>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</RelativeLayout>
+
+
