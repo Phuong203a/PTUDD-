@@ -5,9 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/home_page"
-    tools:context=".MainActivity">
+    android:background="@drawable/background_lib_hocphan"
+    tools:context=".LibraryListChapterActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/icon_add"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,17 +31,16 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="CÁC HỌC PHẦN"
+                android:text="HỌC PHẦN"
                 android:textSize="16dp"
                 android:textStyle="bold"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Xem tất cả"
+                android:layout_weight="2"
+                android:text="THƯ MỤC"
                 android:textStyle="bold"
-                android:textColor="@color/primary"
-                android:gravity="end"/>
+                android:textSize="16dp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,7 +48,7 @@
             android:background="@drawable/bogoc"
             android:orientation="vertical"
             android:padding="16dp"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="30dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -61,35 +66,14 @@
         </LinearLayout>
 
         <!-- Khung Linear Layout thứ hai-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="CÁC HỌC PHẦN"
-                android:textSize="16dp"
-                android:textStyle="bold"/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Xem tất cả"
-                android:textStyle="bold"
-                android:textColor="@color/primary"
-                android:gravity="end"/>
-        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bogoc"
             android:orientation="vertical"
             android:padding="16dp"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="30dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -107,35 +91,14 @@
         </LinearLayout>
 
         <!-- Khung Linear Layout thứ hai-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="CÁC HỌC PHẦN"
-                android:textSize="16dp"
-                android:textStyle="bold"/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Xem tất cả"
-                android:textStyle="bold"
-                android:textColor="@color/primary"
-                android:gravity="end"/>
-        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bogoc"
             android:orientation="vertical"
             android:padding="16dp"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="30dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

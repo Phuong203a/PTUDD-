@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/login"
     android:gravity="center"
-    android:background="@drawable/signup"
-    tools:context=".RegisterActivity"
-    >
+    tools:context=".LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,55 +14,45 @@
         android:background="@drawable/bogoc"
         android:orientation="vertical"
         android:layout_gravity="center_vertical"
-        android:layout_marginTop="154dp"
+        android:layout_marginTop="160dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:padding="20dp">
+        android:padding="24dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Đăng Ký"
+            android:text="Đăng Nhập"
             android:textStyle="bold"
-            android:textSize="28dp"
+            android:textSize="30dp"
             android:textAlignment="center"
             android:textColor="#4E5E73"/>
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="46dp"
-            android:background="@drawable/email"
+            android:layout_height="50dp"
+            android:background="@drawable/username"
             android:drawablePadding="8dp"
             android:layout_marginTop="10dp"/>
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="46dp"
-            android:background="@drawable/username_signup"
+            android:layout_height="50dp"
+            android:background="@drawable/password"
             android:drawablePadding="8dp"
             android:layout_marginTop="10dp"/>
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="46dp"
-            android:background="@drawable/password_sigup"
-            android:drawablePadding="8dp"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Forget Password ?"
             android:layout_marginTop="10dp"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="46dp"
-            android:background="@drawable/repassword_signup"
-            android:drawablePadding="8dp"
-            android:layout_marginTop="10dp"/>
-
         <Button
             android:layout_width="match_parent"
-            android:layout_height="46dp"
+            android:layout_height="54dp"
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/primary"
-            android:text="SIGN UP"
+            android:text="LOGIN"
             android:textSize="20dp"/>
     </LinearLayout>
-
 </LinearLayout>
