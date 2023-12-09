@@ -2,24 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/trangchu"
+        android:id="@+id/navigation_home"
         android:title="Trang chủ"
         android:icon="@drawable/home_icon"/>
     <item
-        android:id="@+id/timkiem"
+        android:id="@+id/navigation_search"
         android:title="Tìm kiếm"
         android:icon="@drawable/search_icon"/>
     <item
-        android:id="@+id/fab"
-        android:title=""
-        android:icon="@drawable/add_icon"
-        android:enabled="false"/>
+        android:id="@+id/navigation_add"
+        android:title=""/>
     <item
-        android:id="@+id/thuvien"
+        android:id="@+id/navigation_library"
         android:title="Thư viện"
         android:icon="@drawable/lib_icon"/>
     <item
-        android:id="@+id/hoso"
+        android:id="@+id/navigation_profile"
         android:title="Hồ sơ"
         android:icon="@drawable/hoso_icon"/>
 </menu>

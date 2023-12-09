@@ -5,174 +5,207 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/home_page"
     tools:context=".Activity.MainActivity">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:padding="20dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <!-- Khung Linear Layout đầu tiên-->
-        <LinearLayout
+        <FrameLayout
+            android:id="@+id/frame_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="CÁC HỌC PHẦN"
-                android:textSize="16dp"
-                android:textStyle="bold"/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Xem tất cả"
-                android:textStyle="bold"
-                android:textColor="@color/primary"
-                android:gravity="end"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bogoc"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:layout_marginTop="10dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tên học phần"
-                android:textColor="@color/primary"
-                android:textStyle="bold"
-                android:textSize="20dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="XXX học phần"
-                android:textSize="13dp"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"/>
-        </LinearLayout>
+            android:layout_height="match_parent"
+            />
 
-        <!-- Khung Linear Layout thứ hai-->
-        <LinearLayout
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottomAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="CÁC HỌC PHẦN"
-                android:textSize="16dp"
-                android:textStyle="bold"/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Xem tất cả"
-                android:textStyle="bold"
-                android:textColor="@color/primary"
-                android:gravity="end"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bogoc"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:layout_marginTop="10dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tên học phần"
-                android:textColor="@color/primary"
-                android:textStyle="bold"
-                android:textSize="20dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="XXX học phần"
-                android:textSize="13dp"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"/>
-        </LinearLayout>
-
-        <!-- Khung Linear Layout thứ hai-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="CÁC HỌC PHẦN"
-                android:textSize="16dp"
-                android:textStyle="bold"/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Xem tất cả"
-                android:textStyle="bold"
-                android:textColor="@color/primary"
-                android:gravity="end"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bogoc"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:layout_marginTop="10dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tên học phần"
-                android:textColor="@color/primary"
-                android:textStyle="bold"
-                android:textSize="20dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="XXX học phần"
-                android:textSize="13dp"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"/>
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- Bottom Menu -->
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_gravity="bottom"
-        app:fabCradleMargin="10dp"
-        android:backgroundTint="@color/white"
-        app:fabCradleRoundedCornerRadius="50dp"
-        android:background="@color/white">
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            app:labelVisibilityMode="labeled"
-            app:itemIconSize="40dp"
+            android:layout_gravity="bottom"
+            android:background="@color/white"
             android:backgroundTint="@color/white"
-            android:background="@android:color/transparent"
-            app:menu="@menu/bottom_menu_main"/>
-    </com.google.android.material.bottomappbar.BottomAppBar>
+            app:fabCradleMargin="10dp"
+            app:fabCradleRoundedCornerRadius="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="BottomAppBar">
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottomNavigationView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@android:color/transparent"
+                android:backgroundTint="@color/white"
+                app:itemIconSize="40dp"
+                app:labelVisibilityMode="labeled"
+                app:menu="@menu/bottom_menu_main" />
+
+        </com.google.android.material.bottomappbar.BottomAppBar>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/add_icon"
+            android:tint="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/bottomAppBar"
+            app:layout_constraintEnd_toEndOf="@+id/bottomAppBar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/bottomAppBar"
+            app:maxImageSize="40dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center_vertical"-->
+<!--        android:padding="20dp"-->
+<!--        android:orientation="vertical">-->
+
+<!--        &lt;!&ndash; Khung Linear Layout đầu tiên&ndash;&gt;-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center_horizontal"-->
+<!--            android:orientation="horizontal">-->
+<!--            <TextView-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="CÁC HỌC PHẦN"-->
+<!--                android:textSize="16dp"-->
+<!--                android:textStyle="bold"/>-->
+<!--            <TextView-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="Xem tất cả"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textColor="@color/primary"-->
+<!--                android:gravity="end"/>-->
+<!--        </LinearLayout>-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/bogoc"-->
+<!--            android:orientation="vertical"-->
+<!--            android:padding="16dp"-->
+<!--            android:layout_marginTop="10dp">-->
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Tên học phần"-->
+<!--                android:textColor="@color/primary"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textSize="20dp"/>-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="XXX học phần"-->
+<!--                android:textSize="13dp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_marginTop="10dp"/>-->
+<!--        </LinearLayout>-->
+
+<!--        &lt;!&ndash; Khung Linear Layout thứ hai&ndash;&gt;-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center_horizontal"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:orientation="horizontal">-->
+<!--            <TextView-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="CÁC HỌC PHẦN"-->
+<!--                android:textSize="16dp"-->
+<!--                android:textStyle="bold"/>-->
+<!--            <TextView-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="Xem tất cả"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textColor="@color/primary"-->
+<!--                android:gravity="end"/>-->
+<!--        </LinearLayout>-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/bogoc"-->
+<!--            android:orientation="vertical"-->
+<!--            android:padding="16dp"-->
+<!--            android:layout_marginTop="10dp">-->
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Tên học phần"-->
+<!--                android:textColor="@color/primary"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textSize="20dp"/>-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="XXX học phần"-->
+<!--                android:textSize="13dp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_marginTop="10dp"/>-->
+<!--        </LinearLayout>-->
+
+<!--        &lt;!&ndash; Khung Linear Layout thứ hai&ndash;&gt;-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center_horizontal"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:orientation="horizontal">-->
+<!--            <TextView-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="CÁC HỌC PHẦN"-->
+<!--                android:textSize="16dp"-->
+<!--                android:textStyle="bold"/>-->
+<!--            <TextView-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="Xem tất cả"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textColor="@color/primary"-->
+<!--                android:gravity="end"/>-->
+<!--        </LinearLayout>-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/bogoc"-->
+<!--            android:orientation="vertical"-->
+<!--            android:padding="16dp"-->
+<!--            android:layout_marginTop="10dp">-->
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Tên học phần"-->
+<!--                android:textColor="@color/primary"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textSize="20dp"/>-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="XXX học phần"-->
+<!--                android:textSize="13dp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_marginTop="10dp"/>-->
+<!--        </LinearLayout>-->
+<!--    </LinearLayout>-->
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
