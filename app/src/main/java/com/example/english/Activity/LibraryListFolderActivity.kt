@@ -1,7 +1,8 @@
-package com.example.english
+package com.example.english.Activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.english.R
 
 class LibraryListFolderActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

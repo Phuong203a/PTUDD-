@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/add_hocphan_background"
-    tools:context=".AddChapterActivity">
+    tools:context=".Activity.AddChapterActivity">
 
     <TextView
         android:layout_width="match_parent"
