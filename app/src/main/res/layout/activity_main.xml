@@ -41,6 +41,8 @@
                 android:background="@android:color/transparent"
                 android:backgroundTint="@color/white"
                 app:itemIconSize="40dp"
+                app:itemTextColor="@color/primary"
+                app:itemIconTint="@color/primary"
                 app:labelVisibilityMode="labeled"
                 app:menu="@menu/bottom_menu_main" />
 

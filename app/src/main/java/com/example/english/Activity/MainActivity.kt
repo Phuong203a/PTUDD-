@@ -25,6 +25,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNavigationView.background = null
 
+        replaceFragment(HomeFragment())
+
         binding.bottomNavigationView.setOnItemSelectedListener {item ->
             when(item.itemId) {
                 R.id.navigation_home -> replaceFragment(HomeFragment())

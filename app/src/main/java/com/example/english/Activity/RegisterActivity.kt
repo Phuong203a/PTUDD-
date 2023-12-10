@@ -13,10 +13,11 @@ import com.example.english.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
-    private lateinit var database: DatabaseReference
+    private lateinit var database: FirebaseFirestore
 
     private lateinit var edtEmail: EditText
     private lateinit var edtName: EditText
@@ -32,6 +33,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
 
         auth = FirebaseAuth.getInstance()
+        database = FirebaseFirestore.getInstance()
 
         edtEmail = findViewById(R.id.edtEmail)
         edtName = findViewById(R.id.edtName)
@@ -72,15 +74,11 @@ class RegisterActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            val user: User = User(email, username, password)
+
             auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
                 if(it.isSuccessful) {
-                    val user: User = User(email, username, password)
-
-                    database = FirebaseDatabase.getInstance().getReference("Users")
-                    database.child(email).setValue(user).addOnSuccessListener {
-                        Toast.makeText(this, "Đăng kí thành công", Toast.LENGTH_SHORT).show()
-                    }
-
+                    addUserFirebaseFirestore(user)
 
                     startActivity(Intent(this, LoginActivity::class.java))
                     finish()
@@ -95,6 +93,23 @@ class RegisterActivity : AppCompatActivity() {
 
         tvLogin.setOnClickListener {
             finish()
+        }
+    }
+
+
+    private fun addUserFirebaseFirestore(user: User) {
+        val usersCollection = database.collection("users")
+
+        val userDocument = user.email?.let { usersCollection.document(it) }
+
+        if (userDocument != null) {
+            userDocument.set(user)
+                .addOnSuccessListener {
+                    Log.d("Firestore", "Người dùng đã được thêm thành công!")
+                }
+                .addOnFailureListener { e ->
+                    Log.e("Firestore", "Lỗi khi thêm người dùng", e)
+                }
         }
     }
 }
