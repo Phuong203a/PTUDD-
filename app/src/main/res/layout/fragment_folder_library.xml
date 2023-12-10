@@ -5,12 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.FolderLibraryFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvFolderList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="FOLDER"
-        android:textSize="30dp"/>
+        android:layout_marginTop="20dp" />
 
 </FrameLayout>

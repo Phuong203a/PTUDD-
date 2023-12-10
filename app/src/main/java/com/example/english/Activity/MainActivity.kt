@@ -2,6 +2,9 @@ package com.example.english.Activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
+import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -11,17 +14,19 @@ import com.example.english.Fragment.ProfileFragment
 import com.example.english.Fragment.SearchFragment
 import com.example.english.R
 import com.example.english.databinding.ActivityMainBinding
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var dialog: BottomSheetDialog
 
-    private val homeFragment: HomeFragment = HomeFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
         binding.bottomNavigationView.background = null
 
@@ -38,7 +43,27 @@ class MainActivity : AppCompatActivity() {
 
             true
         }
+
+        binding.btnAdd.setOnClickListener {
+            val dialogView = layoutInflater.inflate(R.layout.bottomsheet_layout, null)
+            dialog = BottomSheetDialog(this, R.style.BottomSheetDialogTheme)
+            dialog.setContentView(dialogView)
+            dialog.show()
+
+            val topicButton = dialogView.findViewById<CardView>(R.id.cvTopic)
+            val folderButton = dialogView.findViewById<CardView>(R.id.cvFolder)
+
+            topicButton.setOnClickListener {
+                Toast.makeText(dialogView.context, "Topic Button", Toast.LENGTH_SHORT).show()
+            }
+
+            folderButton.setOnClickListener {
+                Toast.makeText(dialogView.context, "Folder Button", Toast.LENGTH_SHORT).show()
+            }
+
+        }
     }
+
 
     private fun replaceFragment(fragment: Fragment) {
         val fragmentManager: FragmentManager = supportFragmentManager
