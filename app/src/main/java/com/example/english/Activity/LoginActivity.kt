@@ -1,6 +1,7 @@
 package com.example.english.Activity
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Button
@@ -20,10 +21,13 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var tvForgotPassword: TextView
     private lateinit var tvSignUp:TextView
 
+    private val SHARED_PREFS = "sharedPrefs"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        checkLogined()
 
         auth = FirebaseAuth.getInstance()
 
@@ -43,7 +47,11 @@ class LoginActivity : AppCompatActivity() {
                 if(!password.isEmpty()) {
                     auth.signInWithEmailAndPassword(email, password)
                         .addOnSuccessListener {
+
+                            saveLogin(email)
+
                             Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show()
+
                             startActivity(Intent(this, MainActivity::class.java))
                             finish()
                         }.addOnFailureListener {
@@ -68,5 +76,23 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
 
+    }
+
+    private fun saveLogin(email: String) {
+        val sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("email", email)
+        editor.apply()
+    }
+
+    private fun checkLogined() {
+        val sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
+
+        val email = sharedPreferences.getString("email", "")
+
+        if (email!!.isEmpty()) return
+
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 }

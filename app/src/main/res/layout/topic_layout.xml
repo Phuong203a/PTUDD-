@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginVertical="10dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="8dp">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/tvHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="Tiêu đề topic"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/tvWordCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="10 từ vựng"
+            android:textSize="16dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            >
+
+            <ImageView
+                android:id="@+id/ivImageUser"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/baseline_person_24" />
+
+            <TextView
+                android:id="@+id/tvEmailUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:text="ngoctruongbui2003@gmail.com" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
