@@ -1,9 +1,8 @@
 package com.example.english.Activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -32,15 +31,14 @@ class MainActivity : AppCompatActivity() {
 
         replaceFragment(HomeFragment())
 
-        binding.bottomNavigationView.setOnItemSelectedListener {item ->
-            when(item.itemId) {
+        binding.bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
                 R.id.navigation_home -> replaceFragment(HomeFragment())
                 R.id.navigation_search -> replaceFragment(SearchFragment())
                 R.id.navigation_add -> replaceFragment(HomeFragment())
                 R.id.navigation_library -> replaceFragment(LibraryFragment())
                 R.id.navigation_profile -> replaceFragment(ProfileFragment())
             }
-
             true
         }
 
@@ -60,7 +58,6 @@ class MainActivity : AppCompatActivity() {
             folderButton.setOnClickListener {
                 Toast.makeText(dialogView.context, "Folder Button", Toast.LENGTH_SHORT).show()
             }
-
         }
     }
 
