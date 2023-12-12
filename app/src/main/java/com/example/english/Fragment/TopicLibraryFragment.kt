@@ -1,6 +1,7 @@
 package com.example.english.Fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.english.Adapter.TopicListAdapter
 import com.example.english.R
+import com.example.english.Util.Util
 import com.example.english.ViewModels.TopicVM
 
 class TopicLibraryFragment : Fragment() {
@@ -65,5 +67,6 @@ class TopicLibraryFragment : Fragment() {
 
         rcvTopicList.adapter = TopicListAdapter(topicList)
     }
+
 
 }

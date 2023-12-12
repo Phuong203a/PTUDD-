@@ -1,7 +1,10 @@
 package com.example.english.Models
 
 data class Folder(
-    val email: String? = null,
-    val listTopic: List<Topic>) {
+    var email: String? = null,
+    var name: String? = null,
+    var description: String? = null,
+    var isDelete: Boolean,
+) {
 
 }
