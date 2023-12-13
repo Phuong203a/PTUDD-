@@ -1,12 +1,12 @@
 package com.example.english.Activity
 
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
 import com.example.english.R
 
-class LibraryListChapterActivity : AppCompatActivity() {
+class EditVocabularyActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_library_list_chapter)
+        setContentView(R.layout.activity_edit_vocabulary)
     }
 }

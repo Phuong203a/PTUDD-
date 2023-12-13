@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/add_thu_muc"
-    tools:context=".Activity.AddFolderActivity">
+    android:background="@drawable/add_hocphan_background"
+    tools:context=".Activity.AddTopicActivity">
 
     <TextView
         android:layout_width="match_parent"
@@ -15,9 +15,10 @@
         android:textSize="20dp"
         android:textStyle="bold"
         android:layout_marginTop="20dp"
-        android:text="Tạo thư mục"/>
+        android:text="Tạo học phần"/>
 
     <TextView
+        android:id="@+id/tvExit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Hủy"
@@ -38,17 +39,42 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/khung_trang_vuong"
         android:orientation="vertical"
-        android:padding="20dp"
-        android:layout_marginTop="100dp">
+        >
 
         <EditText
+            android:id="@+id/edtTopic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:hint="Tên thư mục"
-            android:textStyle="bold"/>
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginRight="20dp"
+            android:hint="Tiêu đề học phần"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chế độ công khai"
+                android:textSize="16dp" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/togglePublic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
 
     </LinearLayout>
+
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+

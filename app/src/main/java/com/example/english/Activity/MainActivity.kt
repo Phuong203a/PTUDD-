@@ -1,7 +1,7 @@
 package com.example.english.Activity
 
+import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
@@ -52,11 +52,13 @@ class MainActivity : AppCompatActivity() {
             val folderButton = dialogView.findViewById<CardView>(R.id.cvFolder)
 
             topicButton.setOnClickListener {
-                Toast.makeText(dialogView.context, "Topic Button", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, AddTopicActivity::class.java))
+                finish()
             }
 
             folderButton.setOnClickListener {
-                Toast.makeText(dialogView.context, "Folder Button", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, AddFolderActivity::class.java))
+                finish()
             }
         }
     }

@@ -1,12 +1,12 @@
 package com.example.english.Activity
 
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
 import com.example.english.R
 
-class AddChapterActivity : AppCompatActivity() {
+class EditTopicActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_chapter)
+        setContentView(R.layout.activity_edit_topic)
     }
 }

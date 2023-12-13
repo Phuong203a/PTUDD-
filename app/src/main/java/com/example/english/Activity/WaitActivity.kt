@@ -20,6 +20,7 @@ class WaitActivity : AppCompatActivity() {
         timer.schedule(object : TimerTask() {
             override fun run() {
                 startActivity(Intent(this@WaitActivity, LoginActivity::class.java))
+                finish()
             }
         }, 3000)
     }

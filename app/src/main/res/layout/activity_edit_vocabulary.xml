@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/add_thu_muc"
-    tools:context=".Activity.AddFolderActivity">
+    tools:context=".Activity.EditVocabularyActivity">
 
     <TextView
         android:layout_width="match_parent"
@@ -15,9 +14,10 @@
         android:textSize="20dp"
         android:textStyle="bold"
         android:layout_marginTop="20dp"
-        android:text="Tạo thư mục"/>
+        android:text="Sửa từ vựng"/>
 
     <TextView
+        android:id="@+id/tvExit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Hủy"
@@ -26,10 +26,10 @@
         android:layout_marginLeft="20dp"/>
 
     <TextView
-        android:id="@+id/tvAdd"
+        android:id="@+id/tvEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Thêm"
+        android:hint="Sửa"
         android:textSize="20dp"
         android:layout_gravity="end"
         android:layout_marginRight="20dp"
@@ -38,17 +38,33 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/khung_trang_vuong"
-        android:orientation="vertical"
-        android:padding="20dp"
-        android:layout_marginTop="100dp">
+        android:orientation="vertical">
 
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:hint="Tên thư mục"
-            android:textStyle="bold"/>
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/edtFrontSide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Thuật ngữ" />
+
+            <EditText
+                android:id="@+id/edtBackSide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Định nghĩa" />
+
+        </LinearLayout>
 
     </LinearLayout>
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+

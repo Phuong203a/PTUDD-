@@ -9,10 +9,12 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.english.Fragment.ProfileFragment
 import com.example.english.Models.User
 import com.example.english.R
 import com.example.english.Util.Util
+import com.example.english.ViewModels.UserVM
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -23,18 +25,24 @@ import java.util.concurrent.FutureTask
 
 class EditProfileActivity : AppCompatActivity() {
     private val SHARED_PREFS = "sharedPrefs"
+
     private lateinit var db: FirebaseFirestore
     private val storage = FirebaseStorage.getInstance()
     private val storageRef: StorageReference = storage.reference
+
     private lateinit var txtEmail: TextView
     private lateinit var editTextUserName: EditText
     private lateinit var imageViewAvatar: ImageView
     private lateinit var btnUpdateProfile: Button
     private lateinit var user: User
+
+    private lateinit var userViewModel: UserVM
+
     private var imageUri: Uri? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
+
         txtEmail = findViewById(R.id.txtEmailEditProfile)
         editTextUserName = findViewById(R.id.editTxtNameEditProfile)
         imageViewAvatar=findViewById(R.id.imgAvatarEditProfile)
@@ -45,6 +53,10 @@ class EditProfileActivity : AppCompatActivity() {
         val sharedPreferences  = this?.getSharedPreferences(SHARED_PREFS,
             MODE_PRIVATE
         )
+
+        userViewModel = ViewModelProvider(this)[UserVM::class.java]
+
+
         val userEmail: String = sharedPreferences?.getString("email", null) ?: ""
         loadUser(userEmail)
         imageViewAvatar.setOnClickListener{selectImage()}
@@ -155,9 +167,11 @@ class EditProfileActivity : AppCompatActivity() {
             }
         }
     private fun backToMain(){
-        val intent = Intent(this, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-        startActivity(intent)
+//        val intent = Intent(this, MainActivity::class.java)
+//        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+//        startActivity(intent)
+        val newUsername = user
+        userViewModel.setUser(user)
         finish()
     }
 }
