@@ -21,7 +21,6 @@ class LibraryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_library, container, false)
 
         tabLayout = mView.findViewById(R.id.tabLayout)

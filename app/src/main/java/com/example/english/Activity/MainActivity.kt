@@ -53,12 +53,10 @@ class MainActivity : AppCompatActivity() {
 
             topicButton.setOnClickListener {
                 startActivity(Intent(this, AddTopicActivity::class.java))
-                finish()
             }
 
             folderButton.setOnClickListener {
                 startActivity(Intent(this, AddFolderActivity::class.java))
-                finish()
             }
         }
     }

@@ -22,6 +22,6 @@ class WaitActivity : AppCompatActivity() {
                 startActivity(Intent(this@WaitActivity, LoginActivity::class.java))
                 finish()
             }
-        }, 3000)
+        }, 2000)
     }
 }

@@ -10,11 +10,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.example.english.Fragment.ProfileFragment
 import com.example.english.Models.User
 import com.example.english.R
 import com.example.english.Util.Util
-import com.example.english.ViewModels.UserVM
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -26,7 +24,7 @@ import java.util.concurrent.FutureTask
 class EditProfileActivity : AppCompatActivity() {
     private val SHARED_PREFS = "sharedPrefs"
 
-    private lateinit var db: FirebaseFirestore
+    private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val storage = FirebaseStorage.getInstance()
     private val storageRef: StorageReference = storage.reference
 
@@ -36,31 +34,32 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var btnUpdateProfile: Button
     private lateinit var user: User
 
-    private lateinit var userViewModel: UserVM
-
     private var imageUri: Uri? = null
+    private lateinit var userEmail: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
 
-        txtEmail = findViewById(R.id.txtEmailEditProfile)
+        init()
+
+        loadUser(userEmail)
+
+        imageViewAvatar.setOnClickListener{selectImage()}
+        btnUpdateProfile.setOnClickListener{updateUser(userEmail)}
+    }
+
+    private fun init() {
+        txtEmail = findViewById(R.id.txtEmailProfile)
         editTextUserName = findViewById(R.id.editTxtNameEditProfile)
         imageViewAvatar=findViewById(R.id.imgAvatarEditProfile)
         btnUpdateProfile = findViewById(R.id.btnSaveProfile)
         user = User()
-        db = FirebaseFirestore.getInstance()
 
         val sharedPreferences  = this?.getSharedPreferences(SHARED_PREFS,
             MODE_PRIVATE
         )
-
-        userViewModel = ViewModelProvider(this)[UserVM::class.java]
-
-
-        val userEmail: String = sharedPreferences?.getString("email", null) ?: ""
-        loadUser(userEmail)
-        imageViewAvatar.setOnClickListener{selectImage()}
-        btnUpdateProfile.setOnClickListener{updateUser(userEmail)}
+        userEmail = sharedPreferences?.getString("email", null) ?: ""
     }
 
     private fun updateUser(email:String) {
@@ -69,10 +68,12 @@ class EditProfileActivity : AppCompatActivity() {
         imageUri?.let {
             user.avatar = uploadImage(it)
         }
+
         docRef.update("name",editTextUserName.text.toString(),"avatar",user.avatar)
             .addOnSuccessListener { Log.d("updateUser", "DocumentSnapshot successfully updated!") }
             .addOnFailureListener {  Log.w("updateUser", "Error updating document") }
-        backToMain()
+
+        backToPrevious()
     }
 
     private fun loadUser(email:String){
@@ -150,6 +151,7 @@ class EditProfileActivity : AppCompatActivity() {
         }
         return url
     }
+
     private fun selectImage() {
         val intent = Intent()
         intent.type = "image/*"
@@ -164,14 +166,9 @@ class EditProfileActivity : AppCompatActivity() {
                 imageUri = selectedImageUri
                 imageViewAvatar.setImageURI(imageUri)
             }
-            }
         }
-    private fun backToMain(){
-//        val intent = Intent(this, MainActivity::class.java)
-//        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-//        startActivity(intent)
-        val newUsername = user
-        userViewModel.setUser(user)
+    }
+    private fun backToPrevious() {
         finish()
     }
 }

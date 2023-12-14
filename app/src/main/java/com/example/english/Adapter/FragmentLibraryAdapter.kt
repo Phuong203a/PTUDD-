@@ -19,5 +19,4 @@ class FragmentLibraryAdapter(
             TopicLibraryFragment()
         else
             FolderLibraryFragment()
-
 }

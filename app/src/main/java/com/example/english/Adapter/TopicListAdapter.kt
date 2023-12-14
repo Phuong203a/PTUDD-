@@ -22,12 +22,12 @@ class TopicListAdapter(private val dataList: ArrayList<TopicVM>) : RecyclerView.
 
     override fun onBindViewHolder(holder: ViewHolderClass, position: Int) {
         val currentItem = dataList[position]
-        holder.tvHeading.text = currentItem.heading
+        holder.tvHeading.text = currentItem.title
         holder.tvWordCount.text = currentItem.countWords.toString() + " từ vựng"
         holder.ivImageUser.setImageResource(R.drawable.baseline_person_24)
         holder.tvEmailUser.text = currentItem.emailUser
         holder.itemView.setOnClickListener{
-            Toast.makeText(holder.itemView.context, currentItem.heading, Toast.LENGTH_SHORT).show()
+            Toast.makeText(holder.itemView.context, currentItem.title, Toast.LENGTH_SHORT).show()
         }
     }
 
