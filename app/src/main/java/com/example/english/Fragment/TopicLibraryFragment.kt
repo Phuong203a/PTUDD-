@@ -9,18 +9,27 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.english.Adapter.TopicListAdapter
+import com.example.english.Models.Folder
 import com.example.english.R
 import com.example.english.Util.Util
 import com.example.english.ViewModels.TopicVM
+import com.google.android.gms.tasks.Tasks
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
+import java.util.concurrent.FutureTask
 
 class TopicLibraryFragment : Fragment() {
     private lateinit var rcvTopicList: RecyclerView
     private var topicList: ArrayList<TopicVM> = arrayListOf<TopicVM>()
+    private lateinit var db: FirebaseFirestore
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        db = FirebaseFirestore.getInstance()
         val mView = inflater.inflate(R.layout.fragment_topic_library, container, false)
 
         rcvTopicList = mView.findViewById(R.id.rcvTopicList)
@@ -32,6 +41,7 @@ class TopicLibraryFragment : Fragment() {
 
         return mView
     }
+
 
     private fun getData() {
         val headingList = arrayOf(
@@ -67,6 +77,8 @@ class TopicLibraryFragment : Fragment() {
 
         rcvTopicList.adapter = TopicListAdapter(topicList)
     }
+
+
 
 
 }

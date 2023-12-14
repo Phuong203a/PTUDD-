@@ -1,5 +1,7 @@
 package com.example.english.Adapter
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,11 +9,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.english.Activity.FolderDetailActivity
 import com.example.english.R
 import com.example.english.ViewModels.FolderVM
 import com.example.english.ViewModels.TopicVM
 
-class FolderListAdapter(private val dataList: ArrayList<FolderVM>) : RecyclerView.Adapter<FolderListAdapter.ViewHolderClass>() {
+class FolderListAdapter(private val context: Context,private val dataList: ArrayList<FolderVM>) : RecyclerView.Adapter<FolderListAdapter.ViewHolderClass>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderClass {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.folder_layout, parent, false)
@@ -30,7 +33,9 @@ class FolderListAdapter(private val dataList: ArrayList<FolderVM>) : RecyclerVie
         holder.tvEmailUser.text = currentItem.emailUser
 
         holder.itemView.setOnClickListener{
-            Toast.makeText(holder.itemView.context, currentItem.heading, Toast.LENGTH_SHORT).show()
+            val intent = Intent(context, FolderDetailActivity::class.java)
+            intent.putExtra("folderId", currentItem.folderId)
+            context.startActivity(intent)
         }
     }
 

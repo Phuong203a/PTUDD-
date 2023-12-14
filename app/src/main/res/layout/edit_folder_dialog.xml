@@ -30,11 +30,11 @@
             android:text="OK" />
 
         <Button
-            android:id="@+id/btnDeleteFolder"
+            android:id="@+id/btnCancelEditolder"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Delete" />
+            android:text="Cancel" />
 
     </LinearLayout>
 </LinearLayout>

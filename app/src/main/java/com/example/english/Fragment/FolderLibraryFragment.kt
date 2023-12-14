@@ -1,26 +1,38 @@
 package com.example.english.Fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.english.Adapter.FolderListAdapter
+import com.example.english.Models.Folder
 import com.example.english.R
 import com.example.english.ViewModels.FolderVM
-import com.example.english.ViewModels.TopicVM
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class FolderLibraryFragment : Fragment() {
     private lateinit var rcvFolderList: RecyclerView
-    private var folderList: ArrayList<FolderVM> = arrayListOf<FolderVM>()
+    private var folderList: ArrayList<FolderVM> = arrayListOf()
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        db = FirebaseFirestore.getInstance()
         val mView = inflater.inflate(R.layout.fragment_folder_library, container, false)
 
         rcvFolderList = mView.findViewById(R.id.rcvFolderList)
@@ -28,44 +40,70 @@ class FolderLibraryFragment : Fragment() {
         rcvFolderList.layoutManager = LinearLayoutManager(mView.context)
         rcvFolderList.setHasFixedSize(true)
 
-        getData()
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
+            async { getData() }
+        }
 
         return mView
     }
 
-    private fun getData() {
-        val headingList = arrayOf(
-            "Heading 1",
-            "Heading 2",
-            "Heading 3",
-            "Heading 4",
-            "Heading 5",
-            "Heading 6",
-            "Heading 7",
-            "Heading 8",
-            "Heading 9",
-            "Heading 10",
-        )
+    private suspend fun getAllFolderOfUser(): List<Folder> {
 
-        val emailList = arrayOf(
-            "Heading 1@gmail.com",
-            "Heading 2@gmail.com",
-            "Heading 3@gmail.com",
-            "Heading 4@gmail.com",
-            "Heading 5@gmail.com",
-            "Heading 6@gmail.com",
-            "Heading 7@gmail.com",
-            "Heading 8@gmail.com",
-            "Heading 9@gmail.com",
-            "Heading 10@gmail.com",
-        )
+        val allFolder = mutableListOf<Folder>()
+        try {
+            val firebaseTask = db.collection("folder")
+                .whereEqualTo("isDelete", false)
+                .whereEqualTo("email", FirebaseAuth.getInstance().currentUser?.email)
+                .get()
 
-        for (i in headingList.indices) {
-            val item = FolderVM(headingList[i], 10, "", emailList[i])
+            val result = firebaseTask.await()
+
+            result.forEach { r ->
+                val folder = Folder(
+                    r.id,
+                    r.getString("email") ?: "",
+                    r.getString("name") ?: "",
+                    r.getString("description") ?: "",
+                    r.getBoolean("isDelete") ?: false,
+                )
+                allFolder.add(folder)
+            }
+        } catch (ex: Exception) {
+            Log.d("Exception getAllFolderOfUser MainActivity", ex.message ?: "")
+        }
+        return allFolder
+    }
+
+    private suspend fun getData() {
+
+        val allFolder = getAllFolderOfUser();
+        for (i in allFolder.indices) {
+            val item = FolderVM(
+                allFolder[i].id,
+                allFolder[i].name, countTopicInFolder(allFolder[i].id!!),
+                "",allFolder[i].email
+            )
             folderList.add(item)
         }
 
-        rcvFolderList.adapter = FolderListAdapter(folderList)
+        rcvFolderList.adapter = this.context?.let { FolderListAdapter(it,folderList) }
+
+    }
+
+    private suspend fun countTopicInFolder(folderId: String): Int {
+
+        try {
+            val querySnapshot: QuerySnapshot = db.collection("folder-topic")
+                .whereEqualTo("folderId", folderId)
+                .whereEqualTo("isDelete", false)
+                .get()
+                .await()
+
+            return querySnapshot.size()
+        } catch (e: Exception) {
+            // Handle exceptions
+            return -1
+        }
     }
 
 }

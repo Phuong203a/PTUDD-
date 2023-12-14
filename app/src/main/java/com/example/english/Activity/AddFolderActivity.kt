@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
-import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -31,6 +30,8 @@ class AddFolderActivity : AppCompatActivity() {
 
         textCreateNewFolder.setOnClickListener {
             createNewFolder()
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
         textCancelNewFolder.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
@@ -46,7 +47,7 @@ class AddFolderActivity : AppCompatActivity() {
             return
         }
 
-        var folder = Folder(
+        var folder = Folder(null,
             FirebaseAuth.getInstance().currentUser?.email,
             folderName, folderDescription, false
         )
@@ -68,9 +69,8 @@ class AddFolderActivity : AppCompatActivity() {
                     "createNewFolder",
                     "DocumentSnapshot successfully written!"
                 )
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
             }
             .addOnFailureListener { e -> Log.w("createNewFolder", "Error writing document", e) }
+
     }
 }
