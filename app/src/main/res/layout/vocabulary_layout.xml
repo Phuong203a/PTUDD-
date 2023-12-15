@@ -20,6 +20,7 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/tvWords"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
@@ -28,6 +29,7 @@
                 android:textSize="16dp" />
 
             <ImageView
+                android:id="@+id/ivSpeaker"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -41,6 +43,7 @@
             android:layout_marginTop="10dp">
 
             <TextView
+                android:id="@+id/tvMeaning"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
@@ -49,11 +52,13 @@
                 android:textStyle="bold"/>
 
             <ImageView
+                android:id="@+id/ivEdit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:src="@drawable/baseline_edit_24" />
             <ImageView
+                android:id="@+id/ivDelete"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"

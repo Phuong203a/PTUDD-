@@ -46,16 +46,19 @@ class TopicLibraryFragment : Fragment() {
                 val querySnapshot = db.collection("topic").whereEqualTo("email", emailUser).get().await()
 
                 for (document in querySnapshot) {
+                    val documentId = document.id
+
                     val topicVMNew = TopicVM()
 
                     val topic = document.toObject(Topic::class.java)
 
                     val vocabularySnapshot =
-                        db.collection("topic").document(document.id).collection("vocabulary").get().await()
+                        db.collection("topic").document(documentId).collection("vocabulary").get().await()
 
                     topicVMNew.countWords = vocabularySnapshot.size()
                     topicVMNew.title = topic.title
                     topicVMNew.emailUser = emailUser
+                    topicVMNew.id = documentId
 
                     topicList.add(topicVMNew)
                 }

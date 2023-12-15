@@ -17,6 +17,15 @@
         android:theme="@style/Theme.English"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.ResultObjectiveTestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.ObjectiveTestQuestionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.ObjectiveTestActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.ChangePasswordActivity"
             android:exported="false" />
         <activity
