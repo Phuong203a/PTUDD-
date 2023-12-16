@@ -14,7 +14,8 @@ import com.example.english.R
 import com.example.english.ViewModels.FolderVM
 import com.example.english.ViewModels.TopicVM
 
-class FolderListAdapter(private val context: Context,private val dataList: ArrayList<FolderVM>) : RecyclerView.Adapter<FolderListAdapter.ViewHolderClass>() {
+class FolderListAdapter(private val context: Context,private val dataList: ArrayList<FolderVM>)
+    : RecyclerView.Adapter<FolderListAdapter.ViewHolderClass>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderClass {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.folder_layout, parent, false)
@@ -44,7 +45,6 @@ class FolderListAdapter(private val context: Context,private val dataList: Array
         val tvCountTopic: TextView = itemView.findViewById(R.id.tvCountTopic)
         val ivImageUser: ImageView = itemView.findViewById(R.id.ivImageUser)
         val tvEmailUser: TextView = itemView.findViewById(R.id.tvEmailUser)
-
 
 
     }

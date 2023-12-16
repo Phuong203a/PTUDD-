@@ -59,7 +59,16 @@ class FolderDetailActivity : AppCompatActivity() {
             editFolderButton.setOnClickListener {
                 showUpdateDialog(folder)
             }
+            addTopicButton.setOnClickListener {
+                addNewTopic(folder)
+            }
         }
+    }
+
+    private fun addNewTopic(folder: Folder) {
+        val intent = Intent(this, AddNewTopicToFolderActivity::class.java)
+        intent.putExtra("folderId", folder.id)
+        startActivity(intent)
     }
 
     private fun updateFolder(folder: Folder) {

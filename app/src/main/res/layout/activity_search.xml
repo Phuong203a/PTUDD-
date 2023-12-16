@@ -8,13 +8,13 @@
     android:background="@drawable/timkiem_page"
     tools:context=".Activity.SearchActivity">
 
+    <!-- BOTTOM MENU -->
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="140dp"
-        android:background="@drawable/search_edt"/>
+        android:background="@drawable/search_edt" />
 
-    <!-- BOTTOM MENU -->
     <com.google.android.material.bottomappbar.BottomAppBar
         android:layout_width="match_parent"
         android:layout_height="80dp"
