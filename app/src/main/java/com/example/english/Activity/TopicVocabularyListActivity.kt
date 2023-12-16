@@ -52,7 +52,9 @@ class TopicVocabularyListActivity : AppCompatActivity() {
         }
 
         cvFlashcard.setOnClickListener {
-
+            val intent = Intent(this, FlashcardSettingActivity::class.java)
+            intent.putExtra("topicId", topicId)
+            startActivity(intent)
         }
 
         cvObjectiveTest.setOnClickListener {
