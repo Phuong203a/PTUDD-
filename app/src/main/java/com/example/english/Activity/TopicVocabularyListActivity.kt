@@ -62,7 +62,9 @@ class TopicVocabularyListActivity : AppCompatActivity() {
         }
 
         cvFillWords.setOnClickListener {
-
+            val intent = Intent(this, FillWordsActivity::class.java)
+            intent.putExtra("topicId", topicId)
+            startActivity(intent)
         }
 
 

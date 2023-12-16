@@ -6,4 +6,6 @@
     <color name="second">#F6F6F6</color>
     <color name="colorTab">#818C9A</color>
     <color name="red">#FF0000</color>
+    <color name="redBlack">#DC143C</color>
+    <color name="green">#008000</color>
 </resources>
