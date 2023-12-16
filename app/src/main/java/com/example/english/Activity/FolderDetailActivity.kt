@@ -13,11 +13,18 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.english.Adapter.TopicListAdapter
 import com.example.english.Models.Folder
+import com.example.english.Models.FolderTopic
+import com.example.english.Models.Topic
 import com.example.english.R
+import com.example.english.ViewModels.TopicVM
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
@@ -28,18 +35,22 @@ class FolderDetailActivity : AppCompatActivity() {
     private lateinit var txtFolderName: TextView
     private lateinit var txtFolderDescription: TextView
     private lateinit var folder: Folder
-
+    private lateinit var rcvTopicListOfFolder: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_folder_detail)
         imageViewActionFolder = findViewById(R.id.imageViewActionFolder)
         txtFolderName = findViewById(R.id.txtFolderName)
         txtFolderDescription = findViewById(R.id.txtFolderDescription)
+        rcvTopicListOfFolder= findViewById(R.id.rcvTopicListOfFolder)
+        rcvTopicListOfFolder.layoutManager = LinearLayoutManager(this.applicationContext)
+        rcvTopicListOfFolder.setHasFixedSize(true)
 
         db = FirebaseFirestore.getInstance()
         val folderId = intent.getStringExtra("folderId")
         lifecycleScope.launch(Dispatchers.Main) {
             folder = getFolder(folderId)!!
+            getAllTopicOfFolder(folderId)
             txtFolderName.setText(folder?.name ?: "")
             txtFolderDescription.setText(folder?.description ?: "")
         }
@@ -59,7 +70,16 @@ class FolderDetailActivity : AppCompatActivity() {
             editFolderButton.setOnClickListener {
                 showUpdateDialog(folder)
             }
+            addTopicButton.setOnClickListener {
+                addNewTopic(folder)
+            }
         }
+    }
+
+    private fun addNewTopic(folder: Folder) {
+        val intent = Intent(this, AddNewTopicToFolderActivity::class.java)
+        intent.putExtra("folderId", folder.id)
+        startActivity(intent)
     }
 
     private fun updateFolder(folder: Folder) {
@@ -104,6 +124,46 @@ class FolderDetailActivity : AppCompatActivity() {
             Log.d("Exception getAllFolderOfUser MainActivity", ex.message ?: "")
         }
         return null
+    }
+
+    private suspend fun getAllTopicOfFolder(folderId: String?): List<Topic> {
+        val allTopic = mutableListOf<Topic>()
+        try {
+            val firebaseTask = db.collection("folder-topic")
+                .whereEqualTo("isDelete", false)
+                .whereEqualTo("folderId", folderId)
+                .get()
+
+            val result = firebaseTask.await()
+            var topicList: ArrayList<TopicVM> = arrayListOf()
+            result.forEach { r ->
+                val folderTopic = FolderTopic(
+                    r.getString("folderId") ?: "",
+                    r.getString("topicId") ?: "",
+                    r.getBoolean("isDelete") ?: false,
+                )
+                val documentSnapshot  = db.collection("topic")
+                    .document(folderTopic.topicId!!).get().await()
+                if (documentSnapshot.exists()) {
+                    val topicId = folderTopic.topicId
+                    val topicVMNew = TopicVM()
+                    val topic = documentSnapshot.toObject(Topic::class.java)
+                    val vocabularySnapshot =
+                        db.collection("topic").document(topicId!!)
+                            .collection("vocabulary").get().await()
+
+                    topicVMNew.countWords = vocabularySnapshot.size()
+                    topicVMNew.title = topic?.title
+                    topicVMNew.emailUser = topic?.email
+                    topicVMNew.id = topicId
+                    topicList.add(topicVMNew)
+                }
+            }
+            rcvTopicListOfFolder.adapter = TopicListAdapter(topicList)
+        } catch (ex: Exception) {
+            Log.d("Exception getAllTopicByName", ex.message ?: "")
+        }
+        return allTopic
     }
 
     private fun showDeleteDialog(folder: Folder) {

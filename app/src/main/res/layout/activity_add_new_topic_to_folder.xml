@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Fragment.SearchFragment">
-
+    android:layout_height="match_parent">
     <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchViewAll"
+        android:id="@+id/editTxtSearchTopic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -16,11 +13,10 @@
         android:background="@drawable/searchview_background"
         app:iconifiedByDefault="false"
         app:queryBackground="@android:color/transparent"
-        app:queryHint="Tìm kiếm topic, user" />
+        app:queryHint="Find topics, users" />
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleSearchAll"
+        android:id="@+id/recycleTopicListSearch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="120dp" />
-
-</FrameLayout>
+</RelativeLayout>

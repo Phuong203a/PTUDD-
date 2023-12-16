@@ -14,7 +14,8 @@ import com.example.english.ViewModels.TopicVM
 
 class TopicListAdapter(private val dataList: ArrayList<TopicVM>) : RecyclerView.Adapter<TopicListAdapter.ViewHolderClass>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderClass {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.topic_layout, parent, false)
+        val itemView = LayoutInflater.from(parent.context)
+            .inflate(R.layout.topic_layout, parent, false)
         return ViewHolderClass(itemView)
     }
 

@@ -43,7 +43,8 @@ class TopicLibraryFragment : Fragment() {
 
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val querySnapshot = db.collection("topic").whereEqualTo("email", emailUser).get().await()
+                val querySnapshot = db.collection("topic")
+                    .whereEqualTo("email", emailUser).get().await()
 
                 for (document in querySnapshot) {
                     val documentId = document.id
