@@ -195,6 +195,8 @@ class ObjectiveTestQuestionActivity : AppCompatActivity() {
                 val meanings = vocabularyList.map { it.meaning }.toMutableList()
                 meanings.remove(vocabulary.meaning)
 
+                meanings.shuffle()
+
                 question.correctIndex = Random.nextInt(1, 5)
 
                 when(question.correctIndex) {

@@ -53,6 +53,11 @@ class ObjectiveTestListAdapter(private val dataList: ArrayList<ObjectiveTest>) :
     }
 
     private fun setBackgroundAnswer(holder: ViewHolderClass, correctIndex: Int, chooseIndex: Int) {
+        holder.layoutAnswer1.background = null
+        holder.layoutAnswer2.background = null
+        holder.layoutAnswer3.background = null
+        holder.layoutAnswer4.background = null
+
         if (correctIndex != chooseIndex) {
             val redColor = Color.parseColor("#FF0000")
             when (chooseIndex) {

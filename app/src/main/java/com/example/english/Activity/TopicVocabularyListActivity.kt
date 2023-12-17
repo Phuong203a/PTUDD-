@@ -1,14 +1,21 @@
 package com.example.english.Activity
 
+import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
+import android.media.MediaScannerConnection
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
+import android.os.Handler
+import android.os.Looper
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,10 +29,17 @@ import com.example.english.R
 import com.example.english.ViewModels.TopicVM
 import com.example.english.ViewModels.VocabularyVM
 import com.google.firebase.firestore.FirebaseFirestore
+import com.opencsv.CSVReader
+import com.opencsv.CSVWriter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import java.io.BufferedReader
+import java.io.File
+import java.io.FileWriter
+import java.io.IOException
+import java.io.InputStreamReader
 import java.lang.Exception
 import java.util.Locale
 
@@ -41,11 +55,25 @@ class TopicVocabularyListActivity : AppCompatActivity() {
     private lateinit var cvFlashcard: CardView
     private lateinit var cvObjectiveTest: CardView
     private lateinit var cvFillWords: CardView
+    private lateinit var ivImportCsv: ImageView
+    private lateinit var ivExportCsv: ImageView
 
     private var vocabularyList: ArrayList<VocabularyVM> = arrayListOf<VocabularyVM>()
     private lateinit var textToSpeech: TextToSpeech
     private lateinit var topicId: String
     private var isStart = false
+
+    private val pickCsvFile =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                result.data?.data?.let { uri ->
+                    val inputStream = contentResolver.openInputStream(uri)
+                    readCsvData(inputStream)
+                }
+            }
+        }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_topic_vocabulary_list)
@@ -93,6 +121,13 @@ class TopicVocabularyListActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        ivImportCsv.setOnClickListener {
+            openFilePicker()
+        }
+
+        ivExportCsv.setOnClickListener {
+            exportCsvData()
+        }
     }
 
     override fun onResume() {
@@ -115,6 +150,8 @@ class TopicVocabularyListActivity : AppCompatActivity() {
         cvFlashcard = findViewById(R.id.cvFlashcard)
         cvObjectiveTest = findViewById(R.id.cvObjectiveTest)
         cvFillWords = findViewById(R.id.cvFillWords)
+        ivImportCsv = findViewById(R.id.ivImportCsv)
+        ivExportCsv = findViewById(R.id.ivExportCsv)
 
         rcvVocabularyList.layoutManager = LinearLayoutManager(this)
         rcvVocabularyList.setHasFixedSize(true)
@@ -259,6 +296,114 @@ class TopicVocabularyListActivity : AppCompatActivity() {
         val dialog: AlertDialog = builder.create()
         dialog.show()
 
+    }
+
+    private fun openFilePicker() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+        intent.addCategory(Intent.CATEGORY_OPENABLE)
+        intent.type = "*/*"
+
+        pickCsvFile.launch(intent)
+    }
+
+    private fun readCsvData(inputStream: java.io.InputStream?) {
+        try {
+            inputStream?.let {
+                val reader = BufferedReader(InputStreamReader(it))
+                val csvReader = CSVReader(reader)
+
+                var nextLine: Array<String>?
+                while (csvReader.readNext().also { nextLine = it } != null) {
+                    // Process each row
+                    val vocabulary = Vocabulary()
+                    var i = 0
+
+                    for (column in nextLine!!) {
+                        if (i % 2 == 0) {
+                            vocabulary.words = column
+                        } else {
+                            vocabulary.meaning = column
+                        }
+                        i++
+                    }
+
+                    val newVocabulary = hashMapOf(
+                        "words" to vocabulary.words,
+                        "meaning" to vocabulary.meaning,
+                        "isDelete" to vocabulary.isDelete
+                    )
+
+                    val vocabularyCollection = topicId?.let { db.collection("topic")
+                        .document(it)
+                        .collection("vocabulary") }
+
+                    GlobalScope.launch(Dispatchers.Main) {
+                        try {
+                            val vocabularyDocumentNew = vocabularyCollection?.add(newVocabulary)?.await()
+
+                            Toast.makeText(applicationContext, "Thêm từ vựng thành công", Toast.LENGTH_SHORT).show()
+                            finish()
+
+                        } catch (e: Exception) {
+                            Log.e("tag", e.toString())
+                            Toast.makeText(applicationContext, "Thêm từ vựng thất bại", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    showData(topicId)
+                    reader.close()
+                }, 10000)
+
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun exportCsvData() {
+        val csvFileName = "exported_data.csv"
+
+        try {
+            // Get the "Downloads" directory
+            val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+
+            // Create the CSV file in the "Downloads" directory
+            val file = File(downloadsDir, csvFileName)
+            val writer = CSVWriter(FileWriter(file))
+
+            // Write header
+            val header = arrayOf("words", "meaning")
+            writer.writeNext(header)
+
+            // Iterate through your data and write each row to the CSV file
+            for (vocabulary in vocabularyList) {
+                val row = arrayOf(vocabulary.words, vocabulary.meaning)
+                writer.writeNext(row)
+            }
+
+            // Close the writer
+            writer.close()
+
+            // Notify the system about the new file
+            MediaScannerConnection.scanFile(
+                this,
+                arrayOf(file.absolutePath),
+                null
+            ) { _, _ ->
+                // Scanning completed
+            }
+
+            // Inform the user that the export was successful
+            Toast.makeText(this, "CSV Exported Successfully", Toast.LENGTH_SHORT).show()
+
+        } catch (e: IOException) {
+            e.printStackTrace()
+
+            // Inform the user that an error occurred during export
+            Toast.makeText(this, "Error Exporting CSV", Toast.LENGTH_SHORT).show()
+        }
     }
 
 //    override fun onInit(status: Int) {
