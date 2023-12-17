@@ -6,5 +6,5 @@ data class Vocabulary(
     var words: String? = null,
     var meaning: String? = null,
     var isDelete: Boolean = false) {
-    constructor(): this(null, null)
+    constructor(): this(null, null, false)
 }

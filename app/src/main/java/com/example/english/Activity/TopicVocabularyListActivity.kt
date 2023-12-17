@@ -11,8 +11,10 @@ import android.os.Handler
 import android.os.Looper
 import android.speech.tts.TextToSpeech
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -28,6 +30,7 @@ import com.example.english.Models.Vocabulary
 import com.example.english.R
 import com.example.english.ViewModels.TopicVM
 import com.example.english.ViewModels.VocabularyVM
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.opencsv.CSVReader
 import com.opencsv.CSVWriter
@@ -45,6 +48,7 @@ import java.util.Locale
 
 class TopicVocabularyListActivity : AppCompatActivity() {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private val emailUser: String = FirebaseAuth.getInstance().currentUser?.email.toString()
 
     private lateinit var tvTitle: TextView
     private lateinit var tvMode: TextView
@@ -57,11 +61,13 @@ class TopicVocabularyListActivity : AppCompatActivity() {
     private lateinit var cvFillWords: CardView
     private lateinit var ivImportCsv: ImageView
     private lateinit var ivExportCsv: ImageView
+    private lateinit var llBottom: LinearLayout
 
     private var vocabularyList: ArrayList<VocabularyVM> = arrayListOf<VocabularyVM>()
     private lateinit var textToSpeech: TextToSpeech
     private lateinit var topicId: String
     private var isStart = false
+    private var isShow = true
 
     private val pickCsvFile =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -80,54 +86,71 @@ class TopicVocabularyListActivity : AppCompatActivity() {
 
         topicId = intent.getStringExtra("topicId").toString()
 
-        init()
-        isStart = true
-        Log.e("tag", "onCreate")
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                init()
+                val querySnapshot = db.collection("topic").document(topicId).get().await()
+                val topic = querySnapshot.toObject(Topic::class.java)!!
+
+                isShow = topic.email.equals(emailUser)
+
+                if (!isShow) {
+                    ivEdit.visibility = View.GONE
+                    ivDelete.visibility = View.GONE
+                    llBottom.visibility = View.GONE
+                }
+                isStart = true
+                Log.e("tag", "onCreate")
 
 
-        cvFlashcard.setOnClickListener {
-            val intent = Intent(this, FlashcardSettingActivity::class.java)
-            intent.putExtra("topicId", topicId)
-            startActivity(intent)
-        }
+                cvFlashcard.setOnClickListener {
+                    val intent = Intent(applicationContext, FlashcardSettingActivity::class.java)
+                    intent.putExtra("topicId", topicId)
+                    startActivity(intent)
+                }
 
-        cvObjectiveTest.setOnClickListener {
-            val intent = Intent(this, ObjectiveTestActivity::class.java)
-            intent.putExtra("topicId", topicId)
-            startActivity(intent)
-        }
+                cvObjectiveTest.setOnClickListener {
+                    val intent = Intent(applicationContext, ObjectiveTestActivity::class.java)
+                    intent.putExtra("topicId", topicId)
+                    startActivity(intent)
+                }
 
-        cvFillWords.setOnClickListener {
-            val intent = Intent(this, FillWordsActivity::class.java)
-            intent.putExtra("topicId", topicId)
-            startActivity(intent)
-        }
+                cvFillWords.setOnClickListener {
+                    val intent = Intent(applicationContext, FillWordsActivity::class.java)
+                    intent.putExtra("topicId", topicId)
+                    startActivity(intent)
+                }
 
-        ivEdit.setOnClickListener {
-            val intent = Intent(this, EditTopicActivity::class.java)
-            intent.putExtra("topicId", topicId)
-            startActivity(intent)
-        }
+                ivEdit.setOnClickListener {
+                    val intent = Intent(applicationContext, EditTopicActivity::class.java)
+                    intent.putExtra("topicId", topicId)
+                    startActivity(intent)
+                }
 
-        ivDelete.setOnClickListener {
-            if (topicId != null) {
-                handleDelete(topicId)
+                ivDelete.setOnClickListener {
+                    if (topicId != null) {
+                        handleDelete(topicId)
+                    }
+                }
+
+                btnAdd.setOnClickListener {
+                    val intent = Intent(applicationContext, AddVocabularyActivity::class.java)
+                    intent.putExtra("topicId", topicId)
+                    startActivity(intent)
+                }
+
+                ivImportCsv.setOnClickListener {
+                    openFilePicker()
+                }
+
+                ivExportCsv.setOnClickListener {
+                    exportCsvData()
+                }
+            } catch (e: Exception) {
+                Log.e("tag", e.toString())
             }
         }
 
-        btnAdd.setOnClickListener {
-            val intent = Intent(this, AddVocabularyActivity::class.java)
-            intent.putExtra("topicId", topicId)
-            startActivity(intent)
-        }
-
-        ivImportCsv.setOnClickListener {
-            openFilePicker()
-        }
-
-        ivExportCsv.setOnClickListener {
-            exportCsvData()
-        }
     }
 
     override fun onResume() {
@@ -152,6 +175,7 @@ class TopicVocabularyListActivity : AppCompatActivity() {
         cvFillWords = findViewById(R.id.cvFillWords)
         ivImportCsv = findViewById(R.id.ivImportCsv)
         ivExportCsv = findViewById(R.id.ivExportCsv)
+        llBottom = findViewById(R.id.llBottom)
 
         rcvVocabularyList.layoutManager = LinearLayoutManager(this)
         rcvVocabularyList.setHasFixedSize(true)
@@ -179,7 +203,7 @@ class TopicVocabularyListActivity : AppCompatActivity() {
 
                 if (topic != null) {
                     tvTitle.text = topic.title
-                    tvMode.text = if (topic.isPublic == true) "Công khai" else "Riêng tư"
+                    tvMode.text = if (topic.isPublic) "Công khai" else "Riêng tư"
                 }
 
             } catch (e: Exception) {
@@ -211,7 +235,7 @@ class TopicVocabularyListActivity : AppCompatActivity() {
                     vocabularyList.add(vocabularyVMNew)
                 }
 
-                    rcvVocabularyList.adapter = VocabularyListAdapter(vocabularyList, textToSpeech)
+                    rcvVocabularyList.adapter = VocabularyListAdapter(vocabularyList, textToSpeech, isShow)
             } catch (e: Exception) {
                 Log.e("tag", e.toString())
             }
@@ -330,7 +354,7 @@ class TopicVocabularyListActivity : AppCompatActivity() {
                     val newVocabulary = hashMapOf(
                         "words" to vocabulary.words,
                         "meaning" to vocabulary.meaning,
-                        "isDelete" to vocabulary.isDelete
+                        "isDelete" to false
                     )
 
                     val vocabularyCollection = topicId?.let { db.collection("topic")
@@ -396,7 +420,7 @@ class TopicVocabularyListActivity : AppCompatActivity() {
             }
 
             // Inform the user that the export was successful
-            Toast.makeText(this, "CSV Exported Successfully", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Tải CSV thành công", Toast.LENGTH_SHORT).show()
 
         } catch (e: IOException) {
             e.printStackTrace()

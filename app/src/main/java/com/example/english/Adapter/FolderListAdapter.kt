@@ -13,8 +13,9 @@ import com.example.english.Activity.FolderDetailActivity
 import com.example.english.R
 import com.example.english.ViewModels.FolderVM
 import com.example.english.ViewModels.TopicVM
+import kotlinx.coroutines.CoroutineScope
 
-class FolderListAdapter(private val context: Context,private val dataList: ArrayList<FolderVM>) : RecyclerView.Adapter<FolderListAdapter.ViewHolderClass>() {
+class FolderListAdapter(private val context: Context, private val dataList: ArrayList<FolderVM>) : RecyclerView.Adapter<FolderListAdapter.ViewHolderClass>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderClass {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.folder_layout, parent, false)

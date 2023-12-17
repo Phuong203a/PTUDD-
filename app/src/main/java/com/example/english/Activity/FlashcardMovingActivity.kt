@@ -6,9 +6,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
+import com.example.english.Models.CustomTextToSpeech
 import com.example.english.Models.Flashcard
 import com.example.english.Models.Vocabulary
 import com.example.english.R
@@ -17,13 +20,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import org.w3c.dom.Text
 
 class FlashcardMovingActivity : AppCompatActivity() {
     private val topicCollection = FirebaseFirestore.getInstance().collection("topic")
 
     private lateinit var tvCurrentIndex: TextView
-    private lateinit var cardFront: TextView
-    private lateinit var cardBack: TextView
+    private lateinit var cardFront: CardView
+    private lateinit var cardBack: CardView
+    private lateinit var ivVolumeUp: ImageView
+    private lateinit var tvFront: TextView
+    private lateinit var tvBack: TextView
     private lateinit var btnPrevious: Button
     private lateinit var btnNext: Button
 
@@ -87,6 +94,10 @@ class FlashcardMovingActivity : AppCompatActivity() {
             }
         }
 
+        ivVolumeUp.setOnClickListener {
+            CustomTextToSpeech(this, tvFront.text.toString())
+        }
+
         btnPrevious.setOnClickListener {
             currentIndex--
             remplirData(false)
@@ -99,6 +110,9 @@ class FlashcardMovingActivity : AppCompatActivity() {
         cardBack = findViewById(R.id.cardBack)
         btnPrevious = findViewById(R.id.btnPrevious)
         btnNext = findViewById(R.id.btnNext)
+        tvFront = findViewById(R.id.tvFront)
+        tvBack = findViewById(R.id.tvBack)
+        ivVolumeUp = findViewById(R.id.ivVolumeUp)
     }
 
     private fun remplirData(isFirst: Boolean) {
@@ -125,8 +139,8 @@ class FlashcardMovingActivity : AppCompatActivity() {
         }
 
         tvCurrentIndex.text = "${currentIndex + 1} / ${flashcardsList.size}"
-        cardFront.text = current.frontWords
-        cardBack.text = current.backWords
+        tvFront.text = current.frontWords
+        tvBack.text = current.backWords
 
         if (!isFirst && !isFront) {
             frontAnim.start()

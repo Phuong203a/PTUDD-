@@ -1,6 +1,5 @@
 package com.example.english.Adapter
 
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
@@ -11,13 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.english.Activity.EditTopicActivity
 import com.example.english.Activity.EditVocabularyActivity
-import com.example.english.Models.Topic
+import com.example.english.Models.CustomTextToSpeech
 import com.example.english.Models.Vocabulary
 import com.example.english.R
 import com.example.english.ViewModels.VocabularyVM
@@ -27,10 +23,10 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.lang.Exception
-import java.util.Locale
 
 class VocabularyListAdapter(private val dataList: ArrayList<VocabularyVM>,
-                            private val mTTS: TextToSpeech
+                            private val mTTS: TextToSpeech,
+                            private val isShow: Boolean
 ) : RecyclerView.Adapter<VocabularyListAdapter.ViewHolderClass>() {
 
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
@@ -45,12 +41,18 @@ class VocabularyListAdapter(private val dataList: ArrayList<VocabularyVM>,
     }
 
     override fun onBindViewHolder(holder: ViewHolderClass, position: Int) {
+        if(!isShow) {
+            holder.ivEdit.visibility = View.GONE
+            holder.ivDelete.visibility = View.GONE
+            holder.ivSpeaker.visibility = View.GONE
+        }
         val currentItem = dataList[position]
         holder.tvWords.text = currentItem.words
         holder.tvMeaning.text = currentItem.meaning
 
         holder.ivSpeaker.setOnClickListener{
-            mTTS?.speak(currentItem.words, TextToSpeech.QUEUE_FLUSH, null, null)
+            val textToSpeech = CustomTextToSpeech(holder.itemView.context, currentItem.words.toString())
+//            textToSpeech.onDestroy()
         }
 
         holder.ivEdit.setOnClickListener{
