@@ -43,7 +43,10 @@ class TopicLibraryFragment : Fragment() {
 
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val querySnapshot = db.collection("topic").whereEqualTo("email", emailUser).get().await()
+                val querySnapshot = db.collection("topic")
+                    .whereEqualTo("isDelete", false)
+                    .whereEqualTo("email", emailUser)
+                    .get().await()
 
                 for (document in querySnapshot) {
                     val documentId = document.id
@@ -53,7 +56,11 @@ class TopicLibraryFragment : Fragment() {
                     val topic = document.toObject(Topic::class.java)
 
                     val vocabularySnapshot =
-                        db.collection("topic").document(documentId).collection("vocabulary").get().await()
+                        db.collection("topic")
+                            .document(documentId)
+                            .collection("vocabulary")
+                            .whereEqualTo("isDelete", false)
+                            .get().await()
 
                     topicVMNew.countWords = vocabularySnapshot.size()
                     topicVMNew.title = topic.title

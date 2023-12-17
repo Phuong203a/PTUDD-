@@ -114,6 +114,7 @@ class FlashcardMovingActivity : AppCompatActivity() {
             btnNext.text = "Hoàn thành"
             btnNext.setOnClickListener {
                 Toast.makeText(this, "Hoàn thành", Toast.LENGTH_SHORT).show()
+                finish()
             }
         } else {
             btnNext.text = "Tiếp"

@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
             val folderButton = dialogView.findViewById<CardView>(R.id.cvFolder)
 
             topicButton.setOnClickListener {
-                Toast.makeText(dialogView.context, "Topic Button", Toast.LENGTH_SHORT).show()
+                showCreateNewTopicDialog()
             }
 
             folderButton.setOnClickListener {
@@ -71,9 +71,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+
+    private fun showCreateNewTopicDialog() {
+        startActivity(Intent(this, AddTopicActivity::class.java))
+        dialog.hide()
+    }
+
     private fun showCreateNewFolderDialog() {
         startActivity(Intent(this, AddFolderActivity::class.java))
-        finish()
+        dialog.hide()
     }
 
 

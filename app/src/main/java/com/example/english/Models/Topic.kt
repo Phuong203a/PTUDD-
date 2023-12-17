@@ -3,9 +3,11 @@ package com.example.english.Models
 import com.google.firebase.firestore.PropertyName
 
 data class Topic(
-    val email: String? = null,
-    val title: String? = null,
-    @field:JvmField val isPublic: Boolean? = null
+    var id: String? = null,
+    var email: String? = null,
+    var title: String? = null,
+    @field:JvmField var isPublic: Boolean,
+    var isDelete: Boolean = false
 ) {
-    constructor() : this(null, null, null)
+    constructor() : this(null, null, null, false, false)
 }

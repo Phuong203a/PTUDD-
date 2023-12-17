@@ -26,12 +26,11 @@ class LibraryFragment : Fragment() {
         tabLayout = mView.findViewById(R.id.tabLayout)
         viewPager2 = mView.findViewById(R.id.viewPager2)
 
-        adapter = FragmentLibraryAdapter(childFragmentManager, lifecycle)
 
         tabLayout.addTab(tabLayout.newTab().setText("Học phần"))
         tabLayout.addTab(tabLayout.newTab().setText("Thư mục"))
 
-        viewPager2.adapter = adapter
+        showData()
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -58,5 +57,16 @@ class LibraryFragment : Fragment() {
         })
 
         return mView
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showData()
+    }
+
+    private fun showData() {
+        adapter = FragmentLibraryAdapter(childFragmentManager, lifecycle)
+
+        viewPager2.adapter = adapter
     }
 }

@@ -3,7 +3,8 @@ package com.example.english.Models
 import com.google.firebase.firestore.DocumentId
 
 data class Vocabulary(
-    val words: String? = null,
-    val meaning: String? = null) {
+    var words: String? = null,
+    var meaning: String? = null,
+    var isDelete: Boolean = false) {
     constructor(): this(null, null)
 }

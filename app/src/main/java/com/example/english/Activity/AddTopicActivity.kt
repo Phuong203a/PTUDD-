@@ -59,12 +59,13 @@ class AddTopicActivity : AppCompatActivity() {
     }
 
     private fun handleAdd() {
-        val topic = Topic(userEmail, edtTopic.text.toString(), togglePublic.isChecked )
+        val topic = Topic("", userEmail, edtTopic.text.toString(), togglePublic.isChecked, false )
 
         val newTopic = hashMapOf(
             "email" to topic.email,
             "title" to topic.title,
             "isPublic" to topic.isPublic,
+            "isDelete" to topic.isDelete
         )
         val topicCollection = db.collection("topic")
 
