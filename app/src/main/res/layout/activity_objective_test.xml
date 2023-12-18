@@ -22,7 +22,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Câu trả lời là định nghĩa" />
+            android:text="Trả lời bằng tiếng Anh" />
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/toggleContrary"

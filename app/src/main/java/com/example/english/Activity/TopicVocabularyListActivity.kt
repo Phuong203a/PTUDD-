@@ -66,7 +66,7 @@ class TopicVocabularyListActivity : AppCompatActivity() {
     private var vocabularyList: ArrayList<VocabularyVM> = arrayListOf<VocabularyVM>()
     private lateinit var textToSpeech: TextToSpeech
     private lateinit var topicId: String
-    private var isStart = false
+    private var isStart = true
     private var isShow = true
 
     private val pickCsvFile =
@@ -99,7 +99,7 @@ class TopicVocabularyListActivity : AppCompatActivity() {
                     ivDelete.visibility = View.GONE
                     llBottom.visibility = View.GONE
                 }
-                isStart = true
+                isStart = false
                 Log.e("tag", "onCreate")
 
 
@@ -365,14 +365,14 @@ class TopicVocabularyListActivity : AppCompatActivity() {
                         try {
                             val vocabularyDocumentNew = vocabularyCollection?.add(newVocabulary)?.await()
 
-                            Toast.makeText(applicationContext, "Thêm từ vựng thành công", Toast.LENGTH_SHORT).show()
                             finish()
 
                         } catch (e: Exception) {
                             Log.e("tag", e.toString())
-                            Toast.makeText(applicationContext, "Thêm từ vựng thất bại", Toast.LENGTH_SHORT).show()
+
                         }
                     }
+                    Toast.makeText(applicationContext, "Thêm từ vựng bằng CSV thành công", Toast.LENGTH_SHORT).show()
                 }
 
                 Handler(Looper.getMainLooper()).postDelayed({
@@ -383,6 +383,7 @@ class TopicVocabularyListActivity : AppCompatActivity() {
             }
         } catch (e: IOException) {
             e.printStackTrace()
+            Toast.makeText(applicationContext, "Thêm từ vựng bằng CSV thất bại", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -420,7 +421,7 @@ class TopicVocabularyListActivity : AppCompatActivity() {
             }
 
             // Inform the user that the export was successful
-            Toast.makeText(this, "Tải CSV thành công", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Tải từ vựng trong file CSV thành công", Toast.LENGTH_SHORT).show()
 
         } catch (e: IOException) {
             e.printStackTrace()

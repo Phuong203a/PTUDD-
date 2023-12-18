@@ -73,6 +73,11 @@ class RegisterActivity : AppCompatActivity() {
             isError = true
         }
 
+        if(password.isEmpty()) {
+            edtPassword.error = "Mật khẩu phải ít nhất 6 chữ số"
+            isError = true
+        }
+
         if (isError)
             return
 

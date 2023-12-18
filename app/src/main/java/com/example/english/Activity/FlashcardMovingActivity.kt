@@ -57,12 +57,12 @@ class FlashcardMovingActivity : AppCompatActivity() {
 
                     for (document in querySnapshot) {
                         val vocabulary = document.toObject(Vocabulary::class.java)
-                        flashcardsList.add(if (isReverse) Flashcard(vocabulary.meaning, vocabulary.words)
-                        else Flashcard(vocabulary.words, vocabulary.meaning))
+                        flashcardsList.add(if (isReverse) Flashcard(vocabulary.words, vocabulary.meaning)
+                        else Flashcard(vocabulary.meaning, vocabulary.words))
                     }
 
                     flashcardsList.shuffle()
-                    remplirData(true)
+                    remplirData(true, isReverse)
                 }
 
             } catch (e: Exception) {
@@ -85,6 +85,9 @@ class FlashcardMovingActivity : AppCompatActivity() {
                 frontAnim.start()
                 backAnim.start()
                 isFront = false
+                if (!isReverse) {
+                    CustomTextToSpeech(this, flashcardsList[currentIndex].backWords.toString())
+                }
             } else {
                 frontAnim.setTarget(cardBack)
                 backAnim.setTarget(cardFront)
@@ -100,7 +103,7 @@ class FlashcardMovingActivity : AppCompatActivity() {
 
         btnPrevious.setOnClickListener {
             currentIndex--
-            remplirData(false)
+            remplirData(false, isReverse)
         }
     }
 
@@ -115,7 +118,7 @@ class FlashcardMovingActivity : AppCompatActivity() {
         ivVolumeUp = findViewById(R.id.ivVolumeUp)
     }
 
-    private fun remplirData(isFirst: Boolean) {
+    private fun remplirData(isFirst: Boolean, isReverse:Boolean) {
         val current = flashcardsList[currentIndex]
 
         if(currentIndex == 0) {
@@ -134,13 +137,17 @@ class FlashcardMovingActivity : AppCompatActivity() {
             btnNext.text = "Tiếp"
             btnNext.setOnClickListener {
                 currentIndex++
-                remplirData(false)
+                remplirData(false, isReverse)
             }
         }
 
         tvCurrentIndex.text = "${currentIndex + 1} / ${flashcardsList.size}"
         tvFront.text = current.frontWords
         tvBack.text = current.backWords
+
+        if (isReverse) {
+            CustomTextToSpeech(this, current.frontWords.toString())
+        }
 
         if (!isFirst && !isFront) {
             frontAnim.start()

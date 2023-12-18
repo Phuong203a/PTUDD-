@@ -60,17 +60,21 @@ class LoginActivity : AppCompatActivity() {
     private fun handleLogin(email: String, password: String) {
         if(!email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             if(!password.isEmpty()) {
-                auth.signInWithEmailAndPassword(email, password)
-                    .addOnSuccessListener {
-                        saveLogin(email)
+                if (password.length >= 6) {
+                    auth.signInWithEmailAndPassword(email, password)
+                        .addOnSuccessListener {
+                            saveLogin(email)
 
-                        Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show()
 
-                        startActivity(Intent(this, MainActivity::class.java))
-                        finish()
-                    }.addOnFailureListener {
-                        Toast.makeText(this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show()
-                    }
+                            startActivity(Intent(this, MainActivity::class.java))
+                            finish()
+                        }.addOnFailureListener {
+                            Toast.makeText(this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show()
+                        }
+                } else {
+                    edtPassword.error = "Mật khẩu tối thiếu có 6 chữ số"
+                }
             } else {
                 edtPassword.error = "Mật khẩu không được rỗng"
             }
@@ -90,7 +94,11 @@ class LoginActivity : AppCompatActivity() {
 
     private fun checkLogined() {
 
-        auth.currentUser ?: return
+        val sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
+
+        val email = sharedPreferences.getString("email", "")
+
+        if (email!!.isEmpty()) return
 
         startActivity(Intent(this, MainActivity::class.java))
         finish()
